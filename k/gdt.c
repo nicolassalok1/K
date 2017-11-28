@@ -1,16 +1,13 @@
 #include "gdt.h"
 #include <k/types.h>
 
-
 // Internal function prototypes.
 static void init_gdt();
 
 static void gdt_set_gate(s32,u32,u32,u8,u8);
 
-
 gdt_entry_t gdt_entries[3];
 gdt_ptr_t   gdt_ptr;
-
 
 // Initialisation routine - zeroes all the interrupt service routines,
 // initialises the GDT and IDT.
@@ -35,11 +32,9 @@ static void init_gdt()
     //gdt_set_gate(3, 0, 0xFFFFFFFF, 0xFA, 0xCF); // User mode code segment
     //gdt_set_gate(4, 0, 0xFFFFFFFF, 0xF2, 0xCF); // User mode data segment
 
-    u32 input = (u32)&gdt_ptr + 4;
+    u32 input = (u32)&gdt_ptr;// + 4;
 
-    asm volatile ("movw [%0], %eax\n\t"
-                : /* no output */
-                :"a" (input));
+
 
     asm volatile("lgdt %0\n"
                  : /* no output */
@@ -50,7 +45,6 @@ static void init_gdt()
     asm volatile("movw %ax, %fs\n\t");
     asm volatile("movw %ax, %gs\n\t");
     asm volatile("movw %ax, %ss\n\t");
-
                     //?
     asm volatile ("jmp 0x08\n\t");
 

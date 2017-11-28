@@ -5,7 +5,6 @@ static void idt_set_gate(u8,u32,u16,u8);
 idt_entry_t idt_entries[256];
 idt_ptr_t   idt_ptr;
 
-
 static void init_idt()
 {
     idt_ptr.limit = sizeof(idt_entry_t) * 256 -1;
