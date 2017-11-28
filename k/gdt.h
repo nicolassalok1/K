@@ -1,4 +1,3 @@
-//
 // descriptor_tables.h - Defines the interface for initialising the GDT and IDT.
 //                       Also defines needed structures.
 //                       Based on code from Bran's kernel development tutorials.
@@ -6,9 +5,7 @@
 //
 #include <k/types.h>
 // Initialisation function is publicly accessible.
-void init_descriptor_tables();
-
-
+void init_gdt();
 // This structure contains the value of one GDT entry.
 // We use the attribute 'packed' to tell GCC not to change
 // any of the alignment in the structure.

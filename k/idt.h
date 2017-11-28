@@ -1,5 +1,8 @@
-
+#include <k/types.h>
 // A struct describing an interrupt gate.
+
+void init_idt();
+
 struct idt_entry_struct
 {
     u16 base_lo;             // The lower 16 bits of the address to jump to when this interrupt fires.

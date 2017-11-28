@@ -2,7 +2,6 @@
 #include <k/types.h>
 
 // Internal function prototypes.
-static void init_gdt();
 
 static void gdt_set_gate(s32,u32,u32,u8,u8);
 
@@ -11,17 +10,9 @@ gdt_ptr_t   gdt_ptr;
 
 // Initialisation routine - zeroes all the interrupt service routines,
 // initialises the GDT and IDT.
-void init_descriptor_tables()
-{
 
-    // Initialise the global descriptor table.
-    init_gdt();
-    // Initialise the interrupt descriptor table.
-    //init_idt();
 
-}
-
-static void init_gdt()
+void init_gdt()
 {
     gdt_ptr.limit = (sizeof(gdt_entry_t) * 3) - 1;
     gdt_ptr.base  = (u32)&gdt_entries;
@@ -32,13 +23,12 @@ static void init_gdt()
     //gdt_set_gate(3, 0, 0xFFFFFFFF, 0xFA, 0xCF); // User mode code segment
     //gdt_set_gate(4, 0, 0xFFFFFFFF, 0xF2, 0xCF); // User mode data segment
 
-    u32 input = (u32)&gdt_ptr;// + 4;
-
-
+    //u32 input = (u32)&gdt_ptr;// + 4;
 
     asm volatile("lgdt %0\n"
                  : /* no output */
-                 : "m" (input));
+                 : "m" (gdt_ptr)
+                 : "memory");
 
     asm volatile("movw $0x10, %ax\n\t");
     asm volatile("movw %ax, %ds\n\t");
