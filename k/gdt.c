@@ -30,8 +30,8 @@ void init_gdt()
                  : "m" (gdt_ptr)
                  : "memory");
 
-    asm volatile("movw $0x08, %eax\n\t");
-    asm volatile("movw %ax, %cr0\n\t");
+    asm volatile("movl $0x08, %eax\n\t");
+    asm volatile("movl %eax, %cr0\n\t");
 
     asm volatile("movw $0x10, %ax\n\t");
     asm volatile("movw %ax, %ds\n\t");
