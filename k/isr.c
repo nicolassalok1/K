@@ -8,7 +8,7 @@
 #include "write.h"
 
 // This gets called from our ASM interrupt handler stub.
-void isr_handler(registers_t regs)
+void isr_handler()//registers_t regs)
 {
-    write("recieved interrupt");
+    write("recieved interrupt", 18);
 }

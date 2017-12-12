@@ -12,6 +12,8 @@ isr_common_stub:
   mov fs, ax
   mov gs, ax
 
+  call isr_handler
+
   pop ebx
   mov ds, bx
   mov es, bx
@@ -24,10 +26,10 @@ isr_common_stub:
   iret
 
 
-global isr0;
+  global isr0;
 
-isr0:
-  cli
-  push byte 0
-  push byte 0
-  jmp isr_common_stub
+  isr0:
+    cli
+    push byte 0
+    push byte 0
+    jmp isr_common_stub

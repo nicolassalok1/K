@@ -40,7 +40,7 @@ void k_main(unsigned long magic, multiboot_info_t *info)
 
 	init_gdt();
 	// Initialise the interrupt descriptor table.
-	init_idt();
+	//init_idt();
 
 	char star[4] = "|/-\\";
 	char *fb = (void *)0xb8000;

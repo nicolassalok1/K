@@ -20,7 +20,7 @@
 # ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#
+
 include ../config.mk
 
 TARGET	= k
@@ -31,7 +31,8 @@ OBJS	= \
 		gdt.o \
 		write.o \
 		idt.o \
-		asm.o
+		asm.o \
+		isr.o
 
 DEPS = $(OBJS:.o=.d)
 
@@ -47,7 +48,6 @@ clean:
 	$(RM) $(OBJS) $(DEPS) $(TARGET)
 
 fdp:
-	nasm -felf32 asm.s
 	nasm asm.s -f elf32 -o asm.o
 
 -include $(DEPS)
