@@ -1,8 +1,11 @@
 #include "idt.h"
 #include "string.h"
 
+
 idt_entry_t idt_entries[256];
 idt_ptr_t   idt_ptr;
+
+extern void isr0 ();
 
 void idt_set_gate(u8 num, u32 base, u16 sel, u8 flags)
 {
@@ -23,7 +26,7 @@ void init_idt()
 
     memset(&idt_entries, 0, sizeof(idt_entry_t)*256);
 
-//put idt_entries
+    idt_set_gate( 0, (u32)isr0 , 0x08, 0x8E);
 
     asm volatile("lidt %0\n"
                 : /* no output */

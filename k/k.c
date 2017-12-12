@@ -24,9 +24,10 @@
 #include <k/kstd.h>
 #include "write.h"
 #include "gdt.h"
-#include "isr.h"
+#include "idt.h"
 
 #include "multiboot.h"
+
 
 void k_main(unsigned long magic, multiboot_info_t *info)
 {
@@ -34,20 +35,20 @@ void k_main(unsigned long magic, multiboot_info_t *info)
 	(void)info;
 
 	prepare();
-	char *test = "Hello";
-	write (test, 6);
+//	char *test = "Hello";
+//	write (test, 6);
 
-	// char star[4] = "|/-\\";
-	// char *fb = (void *)0xb8000;
+	init_gdt();
+	// Initialise the interrupt descriptor table.
+	init_idt();
 
-	// for (unsigned i = 0; ; ) {
-	// 	*fb = star[i++ % 4];
-	// }
-  //
-	// for (;;)
-	// 	asm volatile ("hlt");
+	char star[4] = "|/-\\";
+	char *fb = (void *)0xb8000;
 
-	init_descriptor_tables();
-	asm volatile("int $0x3");
-	asm volatile("int $0x4");
+	 for (unsigned i = 0; ; ) {
+		*fb = star[i++ % 4];
+	}
+
+	for (;;)
+		asm volatile ("hlt");
 }

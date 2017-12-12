@@ -11,7 +11,6 @@ gdt_ptr_t   gdt_ptr;
 // Initialisation routine - zeroes all the interrupt service routines,
 // initialises the GDT and IDT.
 
-
 void init_gdt()
 {
     gdt_ptr.limit = (sizeof(gdt_entry_t) * 3) - 1;
@@ -30,7 +29,10 @@ void init_gdt()
                  : "m" (gdt_ptr)
                  : "memory");
 
-    asm volatile("movl $0x08, %eax\n\t");
+    asm volatile("movl %cr0, %eax\n\t"
+                 "or 1, %eax \n\t"
+                 "movl %eax, %cr0\n\t");
+
     asm volatile("movl %eax, %cr0\n\t");
 
     asm volatile("movw $0x10, %ax\n\t");
@@ -38,9 +40,14 @@ void init_gdt()
     asm volatile("movw %ax, %fs\n\t");
     asm volatile("movw %ax, %gs\n\t");
     asm volatile("movw %ax, %ss\n\t");
-                    //?
-    asm volatile ("jmp 0x08\n\t");
 
+     asm volatile("pushl 0x08\n\t"
+                  "pushl $1f\n\t"
+                  "lret \n\t"
+                  "1:");
+
+    //asm volatile("ljmp 0x08 ,%1\n\t"
+    //              "1:");
 }
 
 // Set the value of one GDT entry.
