@@ -2,6 +2,7 @@
 // A struct describing an interrupt gate.
 
 void init_idt();
+void idt_set_gate(u8 num, u32 base, u16 sel, u8 flags);
 
 struct idt_entry_struct
 {

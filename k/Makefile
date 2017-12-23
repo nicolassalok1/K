@@ -32,7 +32,9 @@ OBJS	= \
 		write.o \
 		asm.o \
 		idt.o \
-		isr.o
+		isr.o \
+		irq.o \
+		asmirq.o
 
 DEPS = $(OBJS:.o=.d)
 
@@ -49,5 +51,6 @@ clean:
 
 asm:
 	nasm asm.s -f elf32 -o asm.o
+	nasm asmirq.s -f elf32 -o asmirq.o
 
 -include $(DEPS)
