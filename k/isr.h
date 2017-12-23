@@ -4,6 +4,7 @@
 //          Rewritten for JamesM's kernel development tutorials.
 //
 #include <k/types.h>
+#include <stdio.h>
 
 typedef struct registers
 {
@@ -12,3 +13,5 @@ typedef struct registers
     u32 int_no, err_code;    // Interrupt number and error code (if applicable)
     u32 eip, cs, eflags, useresp, ss; // Pushed by the processor automatically.
 } registers_t;
+
+void isr_handler(registers_t* r);

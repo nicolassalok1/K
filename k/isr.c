@@ -1,14 +1,13 @@
-//
-// isr.c -- High level interrupt service routines and interrupt request handlers.
-//          Part of this code is modified from Bran's kernel development tutorials.
-//          Rewritten for JamesM's kernel development tutorials.
-//
-
 #include "isr.h"
 #include "write.h"
 
-// This gets called from our ASM interrupt handler stub.
-void isr_handler()//registers_t regs)
+
+void isr_handler(registers_t* r)
 {
-    write("recieved interrupt", 18);
+    if (r->err_code < 32)
+    {
+        printf("%d", &r->err_code);
+        printf("Exception. System Halted!\n");
+        for (;;);
+    }
 }

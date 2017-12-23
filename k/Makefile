@@ -30,13 +30,13 @@ OBJS	= \
 	  libvga.o \
 		gdt.o \
 		write.o \
-		idt.o \
 		asm.o \
+		idt.o \
 		isr.o
 
 DEPS = $(OBJS:.o=.d)
 
-all: clean fdp $(TARGET)
+all: clean asm $(TARGET)
 
 $(TARGET): CPPFLAGS += -MMD -Iinclude -I ../libs/libc/include/
 $(TARGET): CFLAGS += $(K_EXTRA_CFLAGS)
@@ -47,7 +47,7 @@ $(TARGET): $(OBJS)
 clean:
 	$(RM) $(OBJS) $(DEPS) $(TARGET)
 
-fdp:
+asm:
 	nasm asm.s -f elf32 -o asm.o
 
 -include $(DEPS)
