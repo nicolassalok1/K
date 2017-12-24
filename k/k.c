@@ -25,7 +25,9 @@
 #include "write.h"
 #include "gdt.h"
 #include "idt.h"
-
+#include "io.h"
+#include "irq.h"
+#include "pit.h"
 #include "multiboot.h"
 
 
@@ -34,13 +36,14 @@ void k_main(unsigned long magic, multiboot_info_t *info)
 	(void)magic;
 	(void)info;
 
+	//init_video();
 	prepare();
-//	char *test = "Hello";
-//	write (test, 6);
-
+	char *test = "Hello";
+	write (test, 6);
 	init_gdt();
-	// Initialise the interrupt descriptor table.
-	//init_idt();
+	init_idt();
+	irq_install();
+	timer_install();
 
 	char star[4] = "|/-\\";
 	char *fb = (void *)0xb8000;

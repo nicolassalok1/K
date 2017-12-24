@@ -1,25 +1,18 @@
-#include "io.h"
+#ifndef IO_H_
+#define IO_H_
 
+#include <k/types.h>
 #include <string.h>
-
-unsigned short *textmemptr;
-int attrib = 0x0F;
-int csr_x = 0, csr_y = 0;
-
-void *memset(void *s, int c, size_t n)
-{
-	char *p = s;
-
-	for (size_t i = 0; i < n; ++i)
-		p[i] = c;
-
-	return s;
-}
+#include "io.h"
 
 unsigned short *memsetw(unsigned short *dest, unsigned short val, int count)
 {
     return memset(dest, val, count);
 }
+
+
+
+
 
 void scroll(void)
 {
@@ -152,7 +145,7 @@ void settextcolor(unsigned char forecolor, unsigned char backcolor)
 {
     /* Top 4 bytes are the background, bottom 4 bytes
     *  are the foreground color */
-    attrib = (backcolor << 4) | (forecolor & 0x0F);
+    attrib = (backcolor << 4) | (forecolor & 0x0F)
 }
 
 /* Sets our text-mode VGA pointer, then clears the screen for us */

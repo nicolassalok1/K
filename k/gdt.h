@@ -3,6 +3,10 @@
 //                       Based on code from Bran's kernel development tutorials.
 //                       Rewritten for JamesM's kernel development tutorials.
 //
+#ifndef GDT_H
+#define GDT_H
+
+
 #include <k/types.h>
 // Initialisation function is publicly accessible.
 void init_gdt();
@@ -31,3 +35,5 @@ struct gdt_ptr_struct
 } __attribute__((packed));
 
 typedef struct gdt_ptr_struct gdt_ptr_t;
+
+#endif

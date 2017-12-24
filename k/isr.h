@@ -3,6 +3,11 @@
 //          Part of this code is modified from Bran's kernel development tutorials.
 //          Rewritten for JamesM's kernel development tutorials.
 //
+
+#ifndef ISR_H
+#define ISR_H
+
+
 #include <k/types.h>
 #include <stdio.h>
 
@@ -15,3 +20,6 @@ typedef struct registers
 } registers_t;
 
 void isr_handler(registers_t* r);
+
+
+#endif				/* !LIBVGA_H */

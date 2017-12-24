@@ -1,7 +1,11 @@
+#ifndef IDT_H
+#define IDT_H
+
 #include <k/types.h>
 // A struct describing an interrupt gate.
 
 void init_idt();
+void idt_load ();
 void idt_set_gate(u8 num, u32 base, u16 sel, u8 flags);
 
 struct idt_entry_struct
@@ -58,3 +62,5 @@ extern void _isr28();
 extern void _isr29();
 extern void _isr30();
 extern void _isr31();
+
+#endif

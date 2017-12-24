@@ -37,8 +37,6 @@ void cls();
 /* Puts a single character on the screen */
 void putch(unsigned char c);
 
-
-
 /* Sets the forecolor and backcolor that we will use */
 void settextcolor(unsigned char forecolor, unsigned char backcolor);
 

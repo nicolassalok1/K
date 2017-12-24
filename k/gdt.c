@@ -46,8 +46,6 @@ void init_gdt()
                   "lret \n\t"
                   "1:");
 
-    //asm volatile("ljmp 0x08 ,%1\n\t"
-    //              "1:");
 }
 
 // Set the value of one GDT entry.
