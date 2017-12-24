@@ -25,5 +25,24 @@ static inline u8 inb(u16 port)
 	return res;
 }
 
+void scroll(void);
+
+/* Updates the hardware cursor: the little blinking line
+*  on the screen under the last character pressed! */
+void move_csr(void);
+
+/* Clears the screen */
+void cls();
+
+/* Puts a single character on the screen */
+void putch(unsigned char c);
+
+
+
+/* Sets the forecolor and backcolor that we will use */
+void settextcolor(unsigned char forecolor, unsigned char backcolor);
+
+/* Sets our text-mode VGA pointer, then clears the screen for us */
+void init_video(void);
 
 #endif				/* !IO_H_ */
