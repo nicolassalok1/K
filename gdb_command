@@ -1,0 +1,4 @@
+
+set architecture i386:intel
+file k/k
+target remote localhost:1234

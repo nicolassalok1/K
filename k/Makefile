@@ -37,7 +37,7 @@ OBJS	= \
 		asmirq.o \
 		io.o \
 		pit.o \
-		keyboard.o 
+		keyboard.o
 
 DEPS = $(OBJS:.o=.d)
 
@@ -46,7 +46,7 @@ all: clean asm $(TARGET)
 $(TARGET): CPPFLAGS += -MMD -Iinclude -I ../libs/libc/include/
 $(TARGET): CFLAGS += $(K_EXTRA_CFLAGS)
 $(TARGET): LDFLAGS += -Wl,-Tk.lds
-$(TARGET): LDLIBS = -L../libs/libc -lc
+$(TARGET): LDLIBS = -L../libs/libc -lc -g
 $(TARGET): $(OBJS)
 
 clean:
