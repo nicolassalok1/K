@@ -8,7 +8,9 @@ static inline void outb(u16 port, u8 val)
 		(void)port;
 		(void)val;
 
-		__asm__ __volatile__ ("outb %1, %0" : : "dN" (port), "a" (val));
+		asm volatile("outb %0, %1\n\t"
+								: /* No output */
+								: "a" (val), "d" (port));
 }
 
 static inline u8 inb(u16 port)
@@ -17,23 +19,11 @@ static inline u8 inb(u16 port)
 
 	u8 res;
 
-	__asm__ __volatile__ ("inb %1, %0" : "=a" (res) : "dN" (port));
+	asm volatile("inb %1, %0\n\t"
+							: "=&a" (res)
+	            : "d" (port));
 	return res;
 }
-/*
-unsigned char inportb (unsigned short _port)
-{
-    unsigned char rv;
-    __asm__ __volatile__ ("inb %1, %0" : "=a" (rv) : "dN" (_port));
-    return rv;
-}
-
-void outportb (unsigned short _port, unsigned char _data)
-{
-    __asm__ __volatile__ ("outb %1, %0" : : "dN" (_port), "a" (_data));
-}
-*/
-
 
 void scroll(void);
 

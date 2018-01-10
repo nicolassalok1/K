@@ -37,14 +37,17 @@ void init_gdt()
 
     asm volatile("movw $0x10, %ax\n\t");
     asm volatile("movw %ax, %ds\n\t");
+    asm volatile("movw %ax, %es\n\t");
     asm volatile("movw %ax, %fs\n\t");
     asm volatile("movw %ax, %gs\n\t");
     asm volatile("movw %ax, %ss\n\t");
 
-     asm volatile("pushl 0x08\n\t"
-                  "pushl $1f\n\t"
-                  "lret \n\t"
-                  "1:");
+   asm volatile("pushl $0x08\n\t"
+                "pushl $1f\n\t"
+                "lret \n\t"
+                "1:");/*
+    asm volatile("ljmp $0x08, %1\n\t"
+                  "1:");*/
 
 }
 
