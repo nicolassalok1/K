@@ -22,7 +22,6 @@ struct gdt_entry_struct
     u8  granularity;
     u8  base_high;           // The last 8 bits of the base.
 } __attribute__((packed));
-
 typedef struct gdt_entry_struct gdt_entry_t;
 
 // This struct describes a GDT pointer. It points to the start of
@@ -33,7 +32,6 @@ struct gdt_ptr_struct
     u16 limit;               // The upper 16 bits of all selector limits.
     u32 base;                // The address of the first gdt_entry_t struct.
 } __attribute__((packed));
-
 typedef struct gdt_ptr_struct gdt_ptr_t;
 
 #endif

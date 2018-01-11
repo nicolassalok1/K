@@ -1,5 +1,5 @@
 #include "isr.h"
-#include "write.h"
+#include "monitor.h"
 #include "io.h"
 
 
@@ -40,12 +40,12 @@ const char *exception_messages[] =
 
 void isr_handler(registers_t* r)
 {
+    monitor_write(" Exception. System Halted!\n");
+
     if (r->int_no < 32)
     {
-        puts(" Exception. System Halted!\n");
-      
-        puts(exception_messages[r->int_no]);
+        monitor_write((char *)exception_messages[r->int_no]);
 
-        for (;;);
+        monitor_put('\n');
     }
 }

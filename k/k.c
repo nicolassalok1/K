@@ -29,6 +29,9 @@
 #include "irq.h"
 #include "pit.h"
 #include "multiboot.h"
+#include "keyboard.h"
+
+#include "monitor.h"
 
 
 void k_main(unsigned long magic, multiboot_info_t *info)
@@ -36,22 +39,25 @@ void k_main(unsigned long magic, multiboot_info_t *info)
 	(void)magic;
 	(void)info;
 
-	//init_video();
 	prepare();
-	char *test = "Hello";
-	write (test, 6);
+
 	init_gdt();
 	init_idt();
 	irq_install();
 	timer_install();
+	keyboard_install();
+
+	monitor_write("Hello World");
+
+	//isr_handler(registers_t* r);
 
 	char star[4] = "|/-\\";
 	char *fb = (void *)0xb8000;
 
 	 for (unsigned i = 0; ; ) {
 		*fb = star[i++ % 4];
+		//keyboard_handler();
+		asm volatile ("int $0x3");
+		asm volatile ("int $0x4");
 	}
-
-	for (;;)
-		asm volatile ("hlt");
 }

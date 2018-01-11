@@ -37,7 +37,8 @@ OBJS	= \
 		asmirq.o \
 		io.o \
 		pit.o \
-		keyboard.o
+		keyboard.o \
+		monitor.o
 
 DEPS = $(OBJS:.o=.d)
 
