@@ -44,22 +44,28 @@ void k_main(unsigned long magic, multiboot_info_t *info)
 	init_gdt();
 	init_idt();
 	irq_install();
+	__asm__ __volatile__ ("sti");
 	timer_install();
 	keyboard_install();
 
-	monitor_write("Hello World");
+	int i = 0;
+	int j = 0;
+	int k = i/j;
+
+	k = k;
+
+	//monitor_write("Hello World");
 
 	//isr_handler(registers_t* r);
 
 	//char star[4] = "|/-\\";
 	//char *fb = (void *)0xb8000;
 
+	//timer_wait(100);
+
 	 for (; ; ) {
 		//*fb = star[i++ % 4];
-
-		asm volatile ("int $0x32");
-		asm volatile ("int $0x33");
-
 		asm volatile ("hlt");
+		//if ((inb(0x64) & 2) == 0) break;
 	}
 }
