@@ -1,4 +1,5 @@
 #include "pit.h"
+#include "monitor.h"
 
 void timer_phase(int hz)
 {
@@ -26,7 +27,7 @@ void timer_handler()
     *  display a message on the screen */
     if (timer_ticks % 18 == 0)
     {
-        puts("One second has passed\n");
+        monitor_write("One second has passed\n");
     }
 }
 

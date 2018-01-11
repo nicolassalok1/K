@@ -5,7 +5,7 @@
 #include "isr.h"
 #include "io.h"
 
-void keyboard_handler(registers_t *r);
+void keyboard_handler();
 void keyboard_install();
 
 #endif

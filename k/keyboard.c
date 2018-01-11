@@ -48,10 +48,9 @@ const unsigned char kbdus[128] =
 };
 
 /* Handles the keyboard interrupt */
-void keyboard_handler(registers_t *r)
+void keyboard_handler()
 {
     unsigned char scancode;
-    r = r;
 
     scancode = inb(0x60);
 

@@ -51,13 +51,15 @@ void k_main(unsigned long magic, multiboot_info_t *info)
 
 	//isr_handler(registers_t* r);
 
-	char star[4] = "|/-\\";
-	char *fb = (void *)0xb8000;
+	//char star[4] = "|/-\\";
+	//char *fb = (void *)0xb8000;
 
-	 for (unsigned i = 0; ; ) {
-		*fb = star[i++ % 4];
-		//keyboard_handler();
-		asm volatile ("int $0x3");
-		asm volatile ("int $0x4");
+	 for (; ; ) {
+		//*fb = star[i++ % 4];
+
+		asm volatile ("int $0x32");
+		asm volatile ("int $0x33");
+
+		asm volatile ("hlt");
 	}
 }
