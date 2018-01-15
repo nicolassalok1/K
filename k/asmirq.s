@@ -113,8 +113,8 @@ _irq15:
 
 extern _irq_handler
 
-
 irq_common_stub:
+
     pusha
     push ds
     push es
@@ -127,7 +127,9 @@ irq_common_stub:
     mov gs, ax
     mov eax, esp
     push eax
+
     mov eax, _irq_handler
+
     call eax
     pop eax
     pop gs

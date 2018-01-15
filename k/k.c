@@ -30,9 +30,7 @@
 #include "pit.h"
 #include "multiboot.h"
 #include "keyboard.h"
-
 #include "monitor.h"
-
 
 void k_main(unsigned long magic, multiboot_info_t *info)
 {
@@ -48,24 +46,10 @@ void k_main(unsigned long magic, multiboot_info_t *info)
 	timer_install();
 	keyboard_install();
 
-	int i = 0;
-	int j = 0;
-	int k = i/j;
-
-	k = k;
-
-	//monitor_write("Hello World");
-
-	//isr_handler(registers_t* r);
-
-	//char star[4] = "|/-\\";
-	//char *fb = (void *)0xb8000;
-
-	//timer_wait(100);
-
-	 for (; ; ) {
-		//*fb = star[i++ % 4];
-		asm volatile ("hlt");
-		//if ((inb(0x64) & 2) == 0) break;
+	 for (;;) {
+		__asm__ __volatile__ ("int $0x11");
+		__asm__ __volatile__ ("int $0x20");
+		__asm__ __volatile__ ("int $0x21");
+		//asm volatile ("hlt");
 	}
 }

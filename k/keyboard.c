@@ -50,11 +50,7 @@ const unsigned char kbdus[128] =
 /* Handles the keyboard interrupt */
 void keyboard_handler()
 {
-    unsigned char scancode;
-
-    scancode = inb(0x60);
-
-    char *s = (char *) &kbdus[scancode];
+    unsigned char scancode = inb(0x60);
 
     if (scancode & 0x80)
     {
@@ -62,12 +58,13 @@ void keyboard_handler()
     }
     else
     {
+        monitor_write("keyboard int");
+        char *s = (char *) &kbdus[scancode];
         monitor_write(s);
     }
 }
 
 void keyboard_install()
 {
-    /* Installs 'timer_handler' to IRQ0 */
     irq_install_handler(1, keyboard_handler);
 }

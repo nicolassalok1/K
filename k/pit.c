@@ -9,33 +9,21 @@ void timer_phase(int hz)
     outb(0x40, divisor >> 8);     /* Set high byte of divisor */
 }
 
-/* This will keep track of how many ticks that the system
-*  has been running for */
 unsigned long timer_ticks = 0;
 
-/* Handles the timer. In this case, it's very simple: We
-*  increment the 'timer_ticks' variable every time the
-*  timer fires. By default, the timer fires 18.222 times
-*  per second. Why 18.222Hz? Some engineer at IBM must've
-*  been smoking something funky */
+
 void timer_handler()
 {
-    /* Increment our 'tick count' */
     timer_ticks++;
 
-    /* Every 18 clocks (approximately 1 second), we will
-    *  display a message on the screen */
     if (timer_ticks % 18 == 0)
     {
         monitor_write("One second has passed\n");
     }
 }
 
-/* Sets up the system clock by installing the timer handler
-*  into IRQ0 */
 void timer_install()
 {
-    /* Installs 'timer_handler' to IRQ0 */
     irq_install_handler(0, timer_handler);
 }
 

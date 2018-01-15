@@ -1,5 +1,5 @@
 #include "irq.h"
-
+#include "monitor.h"
 
 void *irq_routines[16] =
 {
@@ -8,7 +8,7 @@ void *irq_routines[16] =
 };
 
 /* This installs a custom IRQ handler for the given IRQ */
-void irq_install_handler(int irq, void (*handler)(registers_t *r))
+void irq_install_handler(int irq, void (*handler)())
 {
     irq_routines[irq] = handler;
 }
@@ -76,25 +76,50 @@ void irq_install()
 *  interrupt at BOTH controllers, otherwise, you only send
 *  an EOI command to the first controller. If you don't send
 *  an EOI, you won't raise any more IRQs */
-void _irq_handler(registers_t *r)
+void _irq_handler(u32 ds, u32 edi, u32 esi, u32 ebp, u32 esp,
+                  u32 ebx, u32 edx, u32 ecx, u32 eax, u32 int_no,
+                  u32 err_code, u32 eip, u32 cs, u32 cflags,
+                  u32 useresp, u32 ss)
 {
     /* This is a blank function pointer */
-    void (*handler)(registers_t *r);
+    void (*handler)();
+    (void)ds;
+    (void)edi;
+    (void)esi;
+    (void)ebp;
+    (void)esp;
+    (void)ebx;
+    (void)edx;
+    (void)ecx;
+    (void)eax;
+    (void)eip;
+    (void)cs;
+    (void)cflags;
+    (void)useresp;
+    (void)ss;
 
     /* Find out if we have a custom handler to run for this
     *  IRQ, and then finally, run it */
-    handler = irq_routines[r->int_no - 32];
-    if (handler )
+    handler = irq_routines[int_no - 32];
+    if (handler)
     {
-        handler(r);
+        monitor_write("handler not null\n");
+        handler();
+    }
+    else
+    {
+      monitor_write("handler null\n");
     }
 
+    char output = (char)err_code;
+    monitor_put(output);
     /* If the IDT entry that was invoked was greater than 40
     *  (meaning IRQ8 - 15), then we need to send an EOI to
     *  the slave controller */
-    if (r->err_code >= 40)
+    if (err_code >= 32)
     {
         outb(0xA0, 0x20);
+        monitor_write("err_code >= 32\n");
     }
 
     /* In either case, we need to send an EOI to the master

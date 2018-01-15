@@ -19,7 +19,10 @@ typedef struct registers
     u32 eip, cs, eflags, useresp, ss; // Pushed by the processor automatically.
 } registers_t;
 
-void isr_handler(registers_t* r);
+void isr_handler(u32 ds, u32 edi, u32 esi, u32 ebp, u32 esp,
+                  u32 ebx, u32 edx, u32 ecx, u32 eax, u32 int_no,
+                  u32 err_code, u32 eip, u32 cs, u32 cflags,
+                  u32 useresp, u32 ss);
 
 
 #endif				/* !LIBVGA_H */
