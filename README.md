@@ -6,3 +6,5 @@
 	c
 1st term:
 	click to run k_main
+
+	lay src ou lay asm dans gdb pour afficher l'assembleur ou le c

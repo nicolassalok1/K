@@ -11,9 +11,6 @@ unsigned short *memsetw(unsigned short *dest, unsigned short val, int count)
 }
 
 
-
-
-
 void scroll(void)
 {
     unsigned blank, temp;
@@ -134,7 +131,7 @@ void putch(unsigned char c)
     }
 
     /* Scroll the screen if needed, and finally move the cursor */
-    scroll();
+    //scroll();
     move_csr();
 }
 

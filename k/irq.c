@@ -39,6 +39,7 @@ void irq_remap(void)
     outb(0xA1, 0x01);
     outb(0x21, 0x0);
     outb(0xA1, 0x0);
+
 }
 
 /* We first remap the interrupt controllers, and then we install
@@ -76,13 +77,23 @@ void irq_install()
 *  interrupt at BOTH controllers, otherwise, you only send
 *  an EOI command to the first controller. If you don't send
 *  an EOI, you won't raise any more IRQs */
-void _irq_handler(u32 ds, u32 edi, u32 esi, u32 ebp, u32 esp,
-                  u32 ebx, u32 edx, u32 ecx, u32 eax, u32 int_no,
-                  u32 err_code, u32 eip, u32 cs, u32 cflags,
-                  u32 useresp, u32 ss)
+void _irq_handler(u32 ds,
+                  u32 edi,
+                  u32 esi,
+                  u32 ebp,
+                  u32 esp,
+                  u32 ebx,
+                  u32 edx,
+                  u32 ecx,
+                  u32 eax,
+                  u32 int_no,
+                  u32 err_code,
+                  u32 eip,
+                  u32 cs,
+                  u32 cflags,
+                  u32 useresp,
+                  u32 ss)
 {
-    /* This is a blank function pointer */
-    void (*handler)();
     (void)ds;
     (void)edi;
     (void)esi;
@@ -97,29 +108,22 @@ void _irq_handler(u32 ds, u32 edi, u32 esi, u32 ebp, u32 esp,
     (void)cflags;
     (void)useresp;
     (void)ss;
+    (void)err_code;
 
     /* Find out if we have a custom handler to run for this
     *  IRQ, and then finally, run it */
-    handler = irq_routines[int_no - 32];
+    void (*handler)() = irq_routines[int_no - 32];
     if (handler)
     {
-        monitor_write("handler not null\n");
-        handler();
-    }
-    else
-    {
-      monitor_write("handler null\n");
+      handler();
     }
 
-    char output = (char)err_code;
-    monitor_put(output);
     /* If the IDT entry that was invoked was greater than 40
     *  (meaning IRQ8 - 15), then we need to send an EOI to
     *  the slave controller */
-    if (err_code >= 32)
+    if (int_no >= 40)
     {
         outb(0xA0, 0x20);
-        monitor_write("err_code >= 32\n");
     }
 
     /* In either case, we need to send an EOI to the master

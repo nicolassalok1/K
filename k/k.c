@@ -47,9 +47,6 @@ void k_main(unsigned long magic, multiboot_info_t *info)
 	keyboard_install();
 
 	 for (;;) {
-		__asm__ __volatile__ ("int $0x11");
-		__asm__ __volatile__ ("int $0x20");
-		__asm__ __volatile__ ("int $0x21");
-		//asm volatile ("hlt");
+		 asm volatile ("hlt");
 	}
 }

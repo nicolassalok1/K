@@ -63,10 +63,12 @@ void isr_handler(u32 ds, u32 edi, u32 esi, u32 ebp, u32 esp,
 
     if (int_no < 32)
     {
-        monitor_write((char *)exception_messages[int_no]);
-        monitor_put('\n');
+      monitor_write((char *)exception_messages[int_no]);
     }
     else {
-      monitor_write("int number > 32\n");
+      monitor_write("int number KO");
     }
+
+    monitor_put('\n');
+    monitor_put('\n');
 }
