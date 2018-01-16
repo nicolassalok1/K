@@ -15,16 +15,11 @@ mov gs, ax
 call isr_handler
 
   ; 3. Restore state
-pop eax
-mov ds, ax
-mov es, ax
-mov fs, ax
-mov gs, ax
-popa
-add esp, 8 ; Cleans up the pushed error code and pushed ISR number
-sti
-iret ; pops 5 things at once: CS, EIP, EFLAGS, SS, and ESP
 
+  popa
+  add esp, 8
+  sti
+  hlt
 
 global _isr0
 global _isr1
