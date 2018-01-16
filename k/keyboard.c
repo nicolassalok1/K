@@ -54,13 +54,13 @@ void keyboard_handler()
 
     if (scancode & 0x80)
     {
-        monitor_write("scancode");
+        //monitor_write("keyboard int : SPECIAL\n");
     }
     else
     {
-        monitor_write("keyboard int");
-        char *s = (char *) &kbdus[scancode];
-        monitor_write(s);
+        monitor_write("keyboard int : ");
+        monitor_put(kbdus[scancode]);
+        monitor_put('\n');
     }
 }
 
