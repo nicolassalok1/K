@@ -46,7 +46,5 @@ void k_main(unsigned long magic, multiboot_info_t *info)
 	timer_install();
 	keyboard_install();
 
-	 for (;;) {
-		 asm volatile ("hlt");
-	}
+
 }

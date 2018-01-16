@@ -13,15 +13,10 @@ mov gs, ax
 
 call _irq_handler ; Different than the ISR code
 
-pop ebx  ; Different than the ISR code
-mov ds, bx
-mov es, bx
-mov fs, bx
-mov gs, bx
 popa
 add esp, 8
 sti
-iret
+hlt
 
 
 global _irq0
