@@ -7,6 +7,8 @@
 #include "irq.h"
 #include "monitor.h"
 
+static int col = 0;
+
 const unsigned char kbdus[128] =
 {
     0,  27, '1', '2', '3', '4', '5', '6', '7', '8',	/* 9 */
@@ -58,9 +60,27 @@ void keyboard_handler()
     }
     else
     {
-        monitor_write("keyboard int : ");
+        col++;
         monitor_put(kbdus[scancode]);
-        monitor_put('\n');
+        if (col == 79 )
+        {
+          monitor_put('\n');
+          col = 0;
+        }
+
+        if (kbdus[scancode] == '\n')
+        {
+          col = 0;
+        }
+
+        if (kbdus[scancode] == '\b')
+        {
+          monitor_write(" \b");
+          col--;
+          col--;
+        }
+
+
     }
 }
 

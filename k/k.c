@@ -43,8 +43,8 @@ void k_main(unsigned long magic, multiboot_info_t *info)
 	init_idt();
 	irq_install();
 	__asm__ __volatile__ ("sti");
-	timer_install();
+	//timer_install();
 	keyboard_install();
-
+	//__asm__ __volatile__ ("int $0x0");
 
 }
