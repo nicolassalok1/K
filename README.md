@@ -1,12 +1,13 @@
+roots :
+make all
+
 1st term:
 
 	qemu-system-x86_64 -cdrom k.iso
 
-2nd term:
+debug :
 	gdb -x gdb_command
 	b k_main
 	c
-1st term:
-	click to run k_main
 
 	lay src ou lay asm dans gdb pour afficher l'assembleur ou le c
