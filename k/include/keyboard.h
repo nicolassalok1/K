@@ -7,5 +7,6 @@
 
 void keyboard_handler();
 void keyboard_install();
+void handle_key (unsigned char scancode);
 
 #endif

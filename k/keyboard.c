@@ -60,53 +60,52 @@ const unsigned char CAPS[128] =
  '\\', 'W', 'X', 'C', 'V', 'B', 'N'			/* 49 */
 };
 
+void handle_key (unsigned char scancode)
+{
+
+          if (kbdus[scancode] == '&')
+          {
+            caps = caps == 1 ? 0 : 1;
+          }
+          else
+          {
+            col++;
+            if (caps == 0)
+            {
+              monitor_put(kbdus[scancode]);
+            }
+            else
+            {
+              monitor_put(CAPS[scancode - 16]);
+            }
+
+             if (col == 79)
+            {
+              monitor_put('\n');
+              col = 0;
+            }
+
+            if (kbdus[scancode] == '\n')
+            {
+              col = 0;
+            }
+
+            if (kbdus[scancode] == '\b')
+            {
+              monitor_write(" \b");
+              col--;
+              col--;
+            }
+          }
+}
+
 /* Handles the keyboard interrupt */
 void keyboard_handler()
 {
     unsigned char scancode = inb(0x60);
 
-    if (scancode & 0x80)
-    {
-        //monitor_write("keyboard int : SPECIAL\n");
-    }
-    else
-    {
+    handle_key(scancode);
 
-        if (kbdus[scancode] == '&')
-        {
-          caps = caps == 1 ? 0 : 1;
-        }
-        else
-        {
-          col++;
-          if (caps == 0)
-          {
-            monitor_put(kbdus[scancode]);
-          }
-          else
-          {
-            monitor_put(CAPS[scancode - 16]);
-          }
-
-           if (col == 79)
-          {
-            monitor_put('\n');
-            col = 0;
-          }
-
-          if (kbdus[scancode] == '\n')
-          {
-            col = 0;
-          }
-
-          if (kbdus[scancode] == '\b')
-          {
-            monitor_write(" \b");
-            col--;
-            col--;
-          }
-        }
-    }
 }
 
 void keyboard_install()
