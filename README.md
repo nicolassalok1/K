@@ -10,4 +10,5 @@ debug :
 	b k_main
 	c
 
+
 	lay src ou lay asm dans gdb pour afficher l'assembleur ou le c
