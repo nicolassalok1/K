@@ -17,13 +17,13 @@ const unsigned char kbdus[128] =
   '\t',			/* Tab */
   'a', 'z', 'e', 'r',	/* 19 */
   't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\n',	/* Enter key */
-    'à',			/* 29   - Control */
+    0,			/* 29   - Control */
   'q', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';',	/* 39 */
  '\'', '`',   0,		/* Left shift */
  '\\', 'w', 'x', 'c', 'v', 'b', 'n',			/* 49 */
   'm', ',', '.', '/',   0,				/* Right shift */
   '*',
-    'ç',	/* Alt */
+    0,	/* Alt */
   ' ',	/* Space bar */
     '&',	/* Caps lock */
     0,	/* 59 - F1 key ... > */
@@ -54,7 +54,7 @@ const unsigned char CAPS[128] =
 {
   'A', 'Z', 'E', 'R',	/* 19 */
   'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\n',	/* Enter key */
-    'à',			/* 29   - Control */
+    0,			/* 29   - Control */
   'Q', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';',	/* 39 */
  '\'', '`',   0,		/* Left shift */
  '\\', 'W', 'X', 'C', 'V', 'B', 'N'			/* 49 */
