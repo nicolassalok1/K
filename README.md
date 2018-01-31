@@ -1,5 +1,7 @@
 1st term:
-	qemu blablabla...
+
+	qemu-system-x86_64 -cdrom k.iso
+
 2nd term:
 	gdb -x gdb_command
 	b k_main

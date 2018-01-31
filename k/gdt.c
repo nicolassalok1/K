@@ -45,9 +45,8 @@ void init_gdt()
    asm volatile("pushl $0x08\n\t"
                 "pushl $1f\n\t"
                 "lret \n\t"
-                "1:");/*
-    asm volatile("ljmp $0x08, %1\n\t"
-                  "1:");*/
+                "1:");
+
 
 }
 
